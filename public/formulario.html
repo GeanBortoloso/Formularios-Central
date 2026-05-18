@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formulário de Solicitação - Central Peças e Baterias">
+  <title>Nova Solicitação — Central Peças e Baterias</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="header-brand">
+        <img src="assets/logo.png" alt="Central Peças e Baterias" onerror="this.style.display='none'">
+        <span>Central Peças e Baterias</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/">Início</a>
+        <a href="historico.html">Histórico</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="breadcrumb">
+        <a href="/">Início</a>
+        <span>›</span>
+        <span id="breadcrumbTipo">Nova Solicitação</span>
+      </div>
+      <h1 id="pageTitle">Nova Solicitação</h1>
+      <p id="pageSubtitle">Preencha os campos abaixo para enviar sua solicitação</p>
+    </div>
+
+    <form id="solicitacaoForm" novalidate>
+      <!-- Dados do Solicitante -->
+      <div class="form-card">
+        <div class="form-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Dados do Solicitante
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome do Solicitante <span class="required">*</span></label>
+            <input type="text" class="form-control" id="solicitante" placeholder="Ex: João Silva" required>
+          </div>
+          <div class="form-group">
+            <label>Setor <span class="required">*</span></label>
+            <select class="form-control" id="setor" required>
+              <option value="">Selecione o setor</option>
+              <option value="Administração">Administração</option>
+              <option value="Almoxarifado">Almoxarifado</option>
+              <option value="Comercial">Comercial</option>
+              <option value="Compras">Compras</option>
+              <option value="Expedição">Expedição</option>
+              <option value="Financeiro">Financeiro</option>
+              <option value="Manutenção">Manutenção</option>
+              <option value="Produção">Produção</option>
+              <option value="RH">Recursos Humanos</option>
+              <option value="TI">Tecnologia da Informação</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Justificativa</label>
+          <textarea class="form-control" id="justificativa" placeholder="Descreva o motivo da solicitação..." rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Anexar Imagem (Opcional)</label>
+          <input type="file" class="form-control" id="anexo" accept="image/*">
+        </div>
+      </div>
+
+      <!-- Itens Solicitados -->
+      <div class="form-card">
+        <div class="form-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+          Itens Solicitados
+        </div>
+        <div class="items-table-wrap">
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th class="col-num">#</th>
+                <th>Descrição do Item *</th>
+                <th class="col-qtd">Qtd *</th>
+                <th class="col-un">Unidade *</th>
+                <th class="col-obs">Observação</th>
+                <th class="col-act"></th>
+              </tr>
+            </thead>
+            <tbody id="itensTableBody">
+              <!-- Rows added by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top: 1rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnAddItem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Adicionar Item
+          </button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary" id="btnSubmit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>
+          Enviar Solicitação
+        </button>
+        <a href="/" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal">
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <div style="width:64px;height:64px;border-radius:50%;background:rgba(16,185,129,0.15);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Solicitação Enviada!</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;" id="modalMessage">Sua solicitação foi registrada com sucesso.</p>
+      </div>
+      <div class="btn-group" style="justify-content:center;">
+        <a href="#" class="btn btn-primary" id="btnDownloadPDF">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Baixar PDF
+        </a>
+        <a href="/" class="btn btn-secondary">Voltar ao Início</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <input type="hidden" id="tipoSolicitacao" value="">
+
+  <script src="js/formulario.js"></script>
+</body>
+</html>

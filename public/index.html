@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sistema de Solicitação de EPIs e Materiais - Central Peças e Baterias">
+  <title>Central Peças e Baterias — Solicitações</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="header-brand">
+        <img src="assets/logo.png" alt="Central Peças e Baterias" onerror="this.style.display='none'">
+        <span>Central Peças e Baterias</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/" class="active">Início</a>
+        <a href="historico.html">Histórico</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Solicitações de Materiais</h1>
+      <p>Selecione o tipo de solicitação que deseja realizar</p>
+    </section>
+
+    <section class="cards-grid" id="cardsGrid">
+      <!-- Cards are rendered by hub.js -->
+    </section>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="js/hub.js"></script>
+</body>
+</html>

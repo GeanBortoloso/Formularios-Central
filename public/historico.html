@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Histórico de Solicitações - Central Peças e Baterias">
+  <title>Histórico — Central Peças e Baterias</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="header-brand">
+        <img src="assets/logo.png" alt="Central Peças e Baterias" onerror="this.style.display='none'">
+        <span>Central Peças e Baterias</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/">Início</a>
+        <a href="historico.html" class="active">Histórico</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="breadcrumb">
+        <a href="/">Início</a><span>›</span><span>Histórico</span>
+      </div>
+      <h1>Histórico de Solicitações</h1>
+      <p>Consulte e exporte suas solicitações anteriores</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="form-group">
+        <label>Tipo</label>
+        <select class="form-control" id="filtroTipo">
+          <option value="">Todos</option>
+          <option value="EPI">EPI</option>
+          <option value="LIMPEZA">Limpeza</option>
+          <option value="USO_CONSUMO">Uso e Consumo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select class="form-control" id="filtroStatus">
+          <option value="">Todos</option>
+          <option value="PENDENTE">Pendente</option>
+          <option value="APROVADO">Aprovado</option>
+          <option value="RECUSADO">Recusado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Data Início</label>
+        <input type="date" class="form-control" id="filtroDataInicio">
+      </div>
+      <div class="form-group">
+        <label>Data Fim</label>
+        <input type="date" class="form-control" id="filtroDataFim">
+      </div>
+      <div class="form-group" style="align-self:flex-end;">
+        <button class="btn btn-primary btn-sm" id="btnFiltrar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Filtrar
+        </button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="data-table-wrap" id="tableWrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nº Pedido</th>
+            <th>Tipo</th>
+            <th>Solicitante</th>
+            <th>Setor</th>
+            <th>Itens</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="historicoBody"></tbody>
+      </table>
+    </div>
+
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      <h3>Nenhuma solicitação encontrada</h3>
+      <p>Não há registros com os filtros selecionados.</p>
+    </div>
+
+    <!-- Pagination -->
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:1.5rem;" id="pagination"></div>
+  </main>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="js/historico.js"></script>
+</body>
+</html>
