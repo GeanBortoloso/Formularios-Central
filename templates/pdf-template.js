@@ -326,7 +326,7 @@ const gerarPDF = async (solicitacao, res) => {
             `${companyName} — Anexo ${i + 1} referente ao pedido ${solicitacao.numero_pedido}`,
             50,
             doc.page.height - 44,
-            { width: pageWidth, align: 'center' }
+            { width: pageWidth, align: 'center', lineBreak: false }
           );
 
       } catch (err) {
