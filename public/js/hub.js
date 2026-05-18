@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
     },
     {
-      tipo: 'LIMPEZA',
+      tipo: 'MERCADO',
       titulo: 'Mercado',
       descricao: 'Produtos de limpeza, café, produtos de copa e afins.',
       icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"/></svg>`,

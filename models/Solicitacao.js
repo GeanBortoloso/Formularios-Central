@@ -16,7 +16,7 @@ const Solicitacao = sequelize.define('Solicitacao', {
     type: DataTypes.STRING(20),
     allowNull: false,
     validate: {
-      isIn: [['EPI', 'LIMPEZA', 'USO_CONSUMO']],
+      isIn: [['EPI', 'MERCADO', 'USO_CONSUMO']],
     },
   },
   solicitante: {
@@ -38,8 +38,20 @@ const Solicitacao = sequelize.define('Solicitacao', {
     allowNull: true,
   },
   anexo_url: {
-    type: DataTypes.STRING(1024),
+    type: DataTypes.TEXT,
     allowNull: true,
+    get() {
+      const raw = this.getDataValue('anexo_url');
+      if (!raw) return null;
+      try { return JSON.parse(raw); } catch { return [raw]; }
+    },
+    set(val) {
+      if (Array.isArray(val)) {
+        this.setDataValue('anexo_url', JSON.stringify(val));
+      } else {
+        this.setDataValue('anexo_url', val);
+      }
+    },
   },
   status: {
     type: DataTypes.STRING(20),

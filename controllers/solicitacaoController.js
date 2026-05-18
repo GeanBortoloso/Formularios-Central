@@ -16,29 +16,30 @@ const criar = async (req, res) => {
 
   try {
     const { tipo, solicitante, setor, justificativa, itens } = req.body;
-    let anexoUrl = null;
+    let anexoUrls = [];
 
-    // Handle file upload to Supabase if a file is present
-    if (req.file) {
-      const fileExt = path.extname(req.file.originalname);
-      const fileName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${fileExt}`;
-      const { data, error } = await supabase.storage
-        .from('anexos')
-        .upload(fileName, req.file.buffer, {
-          contentType: req.file.mimetype,
-        });
+    // Handle multiple file uploads to Supabase
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const fileExt = path.extname(file.originalname);
+        const fileName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${fileExt}`;
+        const { data, error } = await supabase.storage
+          .from('anexos')
+          .upload(fileName, file.buffer, {
+            contentType: file.mimetype,
+          });
 
-      if (error) {
-        console.error('Erro no upload para Supabase:', error);
-        throw new Error('Erro ao fazer upload do anexo.');
+        if (error) {
+          console.error('Erro no upload para Supabase:', error);
+          throw new Error('Erro ao fazer upload do anexo.');
+        }
+
+        const { data: publicUrlData } = supabase.storage
+          .from('anexos')
+          .getPublicUrl(fileName);
+
+        anexoUrls.push(publicUrlData.publicUrl);
       }
-
-      // Get the public URL
-      const { data: publicUrlData } = supabase.storage
-        .from('anexos')
-        .getPublicUrl(fileName);
-      
-      anexoUrl = publicUrlData.publicUrl;
     }
 
     // Criar a solicitação
@@ -48,7 +49,7 @@ const criar = async (req, res) => {
         solicitante: solicitante.trim(),
         setor: setor.trim(),
         justificativa: justificativa ? justificativa.trim() : null,
-        anexo_url: anexoUrl,
+        anexo_url: anexoUrls.length > 0 ? anexoUrls : null,
       },
       { transaction }
     );

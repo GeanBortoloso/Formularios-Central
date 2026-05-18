@@ -29,7 +29,7 @@ const gerarPDF = async (solicitacao, res) => {
   // Tipo labels
   const tipoLabels = {
     EPI: 'Equipamento de Proteção Individual (EPI)',
-    LIMPEZA: 'Material de Limpeza',
+    MERCADO: 'Mercadorias',
     USO_CONSUMO: 'Material de Uso e Consumo',
   };
 
@@ -287,50 +287,51 @@ const gerarPDF = async (solicitacao, res) => {
       { width: pageWidth, align: 'center' }
     );
 
-  // ===== ANEXO (NOVA PÁGINA) =====
-  if (solicitacao.anexo_url) {
-    try {
-      // Dynamic fetch available in Node 18+
-      const response = await fetch(solicitacao.anexo_url);
-      const arrayBuffer = await response.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
+  // ===== ANEXOS (UMA PÁGINA POR IMAGEM) =====
+  const anexos = solicitacao.anexo_url;
+  if (anexos && Array.isArray(anexos) && anexos.length > 0) {
+    for (let i = 0; i < anexos.length; i++) {
+      try {
+        const response = await fetch(anexos[i]);
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
 
-      doc.addPage();
-      
-      doc
-        .fillColor(CHARCOAL)
-        .fontSize(14)
-        .font('Helvetica-Bold')
-        .text('ANEXO DA SOLICITAÇÃO', 50, 40, { align: 'center' });
+        doc.addPage();
 
-      // Embed the image. Adjusting fit to maintain aspect ratio within the page bounds.
-      doc.image(buffer, 50, 80, { 
-        fit: [pageWidth, doc.page.height - 150], 
-        align: 'center', 
-        valign: 'center' 
-      });
+        doc
+          .fillColor(CHARCOAL)
+          .fontSize(14)
+          .font('Helvetica-Bold')
+          .text(`ANEXO ${i + 1} DE ${anexos.length}`, 50, 40, { align: 'center' });
 
-      // Rodapé da página do anexo
-      doc
-        .moveTo(50, doc.page.height - 50)
-        .lineTo(50 + pageWidth, doc.page.height - 50)
-        .strokeColor(GOLD)
-        .lineWidth(1)
-        .stroke();
+        doc.image(buffer, 50, 80, {
+          fit: [pageWidth, doc.page.height - 150],
+          align: 'center',
+          valign: 'center'
+        });
 
-      doc
-        .fillColor(GOLD)
-        .font('Helvetica')
-        .fontSize(7)
-        .text(
-          `${companyName} — Anexo referente ao pedido ${solicitacao.numero_pedido}`,
-          50,
-          doc.page.height - 44,
-          { width: pageWidth, align: 'center' }
-        );
+        // Rodapé da página do anexo
+        doc
+          .moveTo(50, doc.page.height - 50)
+          .lineTo(50 + pageWidth, doc.page.height - 50)
+          .strokeColor(GOLD)
+          .lineWidth(1)
+          .stroke();
 
-    } catch (err) {
-      console.error('Erro ao baixar anexo para o PDF:', err);
+        doc
+          .fillColor(GOLD)
+          .font('Helvetica')
+          .fontSize(7)
+          .text(
+            `${companyName} — Anexo ${i + 1} referente ao pedido ${solicitacao.numero_pedido}`,
+            50,
+            doc.page.height - 44,
+            { width: pageWidth, align: 'center' }
+          );
+
+      } catch (err) {
+        console.error(`Erro ao baixar anexo ${i + 1} para o PDF:`, err);
+      }
     }
   }
 

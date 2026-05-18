@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   let currentPage = 1;
 
-  const tipoLabels = { EPI: 'EPI', LIMPEZA: 'Limpeza', USO_CONSUMO: 'Uso e Consumo' };
+  const tipoLabels = { EPI: 'EPI', MERCADO: 'Mercadorias', USO_CONSUMO: 'Uso e Consumo' };
   const statusLabels = { PENDENTE: 'Pendente', APROVADO: 'Aprovado', RECUSADO: 'Recusado' };
 
   async function loadData(page = 1) {
@@ -77,11 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       let anexoAction = '';
-      if (s.anexo_url) {
+      const anexos = s.anexo_url;
+      if (anexos && Array.isArray(anexos) && anexos.length > 0) {
+        const count = anexos.length;
         anexoAction = `
-          <a href="${s.anexo_url}" target="_blank" class="btn btn-status btn-pdf" title="Ver Imagem Anexada">
+          <a href="${anexos[0]}" target="_blank" class="btn btn-status btn-pdf" title="Ver Anexos (${count} imagem${count > 1 ? 'ns' : ''})">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            Anexo
+            ${count} Anexo${count > 1 ? 's' : ''}
           </a>`;
       }
 

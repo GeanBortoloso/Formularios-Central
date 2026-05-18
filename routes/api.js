@@ -22,7 +22,7 @@ const parseItens = (req, res, next) => {
 };
 
 // Solicitações
-router.post('/solicitacoes', upload.single('anexo'), parseItens, validarSolicitacao, solicitacaoController.criar);
+router.post('/solicitacoes', upload.array('anexos', 5), parseItens, validarSolicitacao, solicitacaoController.criar);
 router.get('/solicitacoes', solicitacaoController.listar);
 router.get('/solicitacoes/:id', solicitacaoController.buscar);
 router.patch('/solicitacoes/:id/status', solicitacaoController.atualizarStatus);

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const tipoLabels = {
     EPI: { titulo: 'Solicitação de EPI', sub: 'Equipamentos de Proteção Individual' },
-    LIMPEZA: { titulo: 'Mercado', sub: 'Produtos de limpeza e copa' },
+    MERCADO: { titulo: 'Mercado', sub: 'Mercadorias - Produtos de limpeza e copa' },
     USO_CONSUMO: { titulo: 'Uso e Consumo', sub: 'Materiais de escritório e consumo geral' },
   };
 
@@ -115,9 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('justificativa', justificativa);
       formData.append('itens', JSON.stringify(itens)); // Pass itens as a JSON string
 
-      const anexoInput = document.getElementById('anexo');
+      const anexoInput = document.getElementById('anexos');
       if (anexoInput.files.length > 0) {
-        formData.append('anexo', anexoInput.files[0]);
+        for (let i = 0; i < anexoInput.files.length; i++) {
+          formData.append('anexos', anexoInput.files[i]);
+        }
       }
 
       const res = await fetch('/api/solicitacoes', {
