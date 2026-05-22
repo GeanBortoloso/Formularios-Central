@@ -106,7 +106,7 @@ const gerarPDF = async (solicitacao, res) => {
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-    timeZone: 'America/Sao_Paulo'
+    timeZone: 'America/Cuiaba',
   });
   doc.text(dataFormatada, infoLeftX + 65, currentY + 64);
 
