@@ -106,6 +106,7 @@ const gerarPDF = async (solicitacao, res) => {
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    timeZone: 'America/Sao_Paulo'
   });
   doc.text(dataFormatada, infoLeftX + 65, currentY + 64);
 
@@ -281,7 +282,7 @@ const gerarPDF = async (solicitacao, res) => {
     .font('Helvetica')
     .fontSize(7)
     .text(
-      `${companyName} — Documento gerado automaticamente em ${new Date().toLocaleDateString('pt-BR')}`,
+      `${companyName} — Documento gerado automaticamente em ${new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`,
       50,
       currentY + 6,
       { width: pageWidth, align: 'center' }
