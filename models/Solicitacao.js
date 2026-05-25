@@ -68,13 +68,21 @@ const Solicitacao = sequelize.define('Solicitacao', {
       if (!solicitacao.numero_pedido) {
         const year = new Date().getFullYear();
         const { Op } = require('sequelize');
-        const startOfYear = new Date(`${year}-01-01T00:00:00Z`);
-        const count = await Solicitacao.count({
+        
+        const lastSolicitacao = await Solicitacao.findOne({
           where: {
-            created_at: { [Op.gte]: startOfYear },
+            numero_pedido: { [Op.like]: `SOL-${year}-%` }
           },
+          order: [['numero_pedido', 'DESC']]
         });
-        const numero = String(count + 1).padStart(4, '0');
+        
+        let proximoNumero = 1;
+        if (lastSolicitacao) {
+          const parts = lastSolicitacao.numero_pedido.split('-');
+          proximoNumero = parseInt(parts[2], 10) + 1;
+        }
+        
+        const numero = String(proximoNumero).padStart(4, '0');
         solicitacao.numero_pedido = `SOL-${year}-${numero}`;
       }
     },
