@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const tipoLabels = {
     EPI: { titulo: 'Solicitação de EPI', sub: 'Equipamentos de Proteção Individual' },
-    MERCADO: { titulo: 'Mercado', sub: 'Mercadorias - Produtos de limpeza e copa' },
     USO_CONSUMO: { titulo: 'Uso e Consumo', sub: 'Materiais de escritório e consumo geral' },
   };
 

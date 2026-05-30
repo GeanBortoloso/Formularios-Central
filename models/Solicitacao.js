@@ -16,7 +16,7 @@ const Solicitacao = sequelize.define('Solicitacao', {
     type: DataTypes.STRING(20),
     allowNull: false,
     validate: {
-      isIn: [['EPI', 'MERCADO', 'USO_CONSUMO']],
+      isIn: [['EPI', 'USO_CONSUMO']],
     },
   },
   solicitante: {

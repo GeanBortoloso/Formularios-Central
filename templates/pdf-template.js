@@ -29,8 +29,7 @@ const gerarPDF = async (solicitacao, res) => {
   // Tipo labels
   const tipoLabels = {
     EPI: 'Equipamento de Proteção Individual (EPI)',
-    MERCADO: 'Mercadorias',
-    USO_CONSUMO: 'Material de Uso e Consumo',
+    USO_CONSUMO: 'Uso e Consumo',
   };
 
   const statusLabels = {

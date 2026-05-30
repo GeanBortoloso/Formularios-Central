@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   let currentPage = 1;
 
-  const tipoLabels = { EPI: 'EPI', MERCADO: 'Mercadorias', USO_CONSUMO: 'Uso e Consumo' };
+  const tipoLabels = { EPI: 'EPI', USO_CONSUMO: 'Uso e Consumo' };
   const statusLabels = { PENDENTE: 'Pendente', APROVADO: 'Aprovado', RECUSADO: 'Recusado' };
 
   async function loadData(page = 1) {

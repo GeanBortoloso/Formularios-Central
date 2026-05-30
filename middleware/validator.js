@@ -6,8 +6,8 @@ const validarSolicitacao = (req, res, next) => {
   const errors = [];
 
   // Validar campos obrigatórios
-  if (!tipo || !['EPI', 'MERCADO', 'USO_CONSUMO'].includes(tipo)) {
-    errors.push('Tipo de solicitação inválido. Use: EPI, MERCADO ou USO_CONSUMO.');
+  if (!tipo || !['EPI', 'USO_CONSUMO'].includes(tipo)) {
+    errors.push('Tipo de solicitação inválido. Use: EPI ou USO_CONSUMO.');
   }
 
   if (!solicitante || solicitante.trim().length < 3) {
