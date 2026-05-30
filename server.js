@@ -27,6 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Rotas da API
 app.use('/api', apiRoutes);
 
+// Rota leve exclusiva para manter a aplicação acordada (UptimeRobot)
+app.get('/ping', (req, res) => {
+  res.status(200).send('Servidor ativo!');
+});
+
 // Rota fallback para SPA (retorna index.html)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
