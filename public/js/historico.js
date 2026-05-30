@@ -9,12 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadData(page = 1) {
     const tipo = document.getElementById('filtroTipo').value;
+    const filial = document.getElementById('filtroFilial').value;
     const status = document.getElementById('filtroStatus').value;
     const dataInicio = document.getElementById('filtroDataInicio').value;
     const dataFim = document.getElementById('filtroDataFim').value;
 
     const params = new URLSearchParams({ page, limit: 15 });
     if (tipo) params.set('tipo', tipo);
+    if (filial) params.set('filial', filial);
     if (status) params.set('status', status);
     if (dataInicio) params.set('data_inicio', dataInicio);
     if (dataFim) params.set('data_fim', dataFim);
@@ -91,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td style="font-weight:600;color:var(--text-primary)">${s.numero_pedido}</td>
         <td>${tipoLabels[s.tipo] || s.tipo}</td>
         <td>${s.solicitante}</td>
+        <td>${s.filial || '-'}</td>
         <td>${s.setor}</td>
         <td style="text-align:center">${s.itens ? s.itens.length : 0}</td>
         <td>${date}</td>

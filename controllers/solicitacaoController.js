@@ -15,7 +15,7 @@ const criar = async (req, res) => {
   const transaction = await sequelize.transaction();
 
   try {
-    const { tipo, solicitante, setor, justificativa, itens } = req.body;
+    const { tipo, filial, solicitante, setor, justificativa, itens } = req.body;
     let anexoUrls = [];
 
     // Handle multiple file uploads to Supabase
@@ -46,6 +46,7 @@ const criar = async (req, res) => {
     const solicitacao = await Solicitacao.create(
       {
         tipo,
+        filial: parseInt(filial, 10),
         solicitante: solicitante.trim(),
         setor: setor.trim(),
         justificativa: justificativa ? justificativa.trim() : null,
@@ -93,11 +94,12 @@ const criar = async (req, res) => {
  */
 const listar = async (req, res) => {
   try {
-    const { tipo, status, data_inicio, data_fim, page = 1, limit = 20 } = req.query;
+    const { tipo, filial, status, data_inicio, data_fim, page = 1, limit = 20 } = req.query;
 
     const where = {};
 
     if (tipo) where.tipo = tipo;
+    if (filial) where.filial = parseInt(filial, 10);
     if (status) where.status = status;
     if (data_inicio || data_fim) {
       where.created_at = {};

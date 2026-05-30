@@ -2,8 +2,14 @@
  * Middleware de validação para os dados da solicitação
  */
 const validarSolicitacao = (req, res, next) => {
-  const { tipo, solicitante, setor, itens } = req.body;
+  const { tipo, filial, solicitante, setor, itens } = req.body;
   const errors = [];
+
+  // Validar campos obrigatórios
+  const filiaisValidas = [8, 9, 14, 15, 16, 17, 18, 20];
+  if (!filial || !filiaisValidas.includes(parseInt(filial, 10))) {
+    errors.push('Filial inválida. Selecione uma filial válida da lista.');
+  }
 
   // Validar campos obrigatórios
   if (!tipo || !['EPI', 'USO_CONSUMO'].includes(tipo)) {

@@ -12,6 +12,14 @@ const Solicitacao = sequelize.define('Solicitacao', {
     allowNull: false,
     unique: true,
   },
+  filial: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 8,
+    validate: {
+      isIn: [[8, 9, 14, 15, 16, 17, 18, 20]],
+    },
+  },
   tipo: {
     type: DataTypes.STRING(20),
     allowNull: false,

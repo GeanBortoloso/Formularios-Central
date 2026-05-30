@@ -78,11 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.innerHTML = '<div class="spinner"></div> Enviando...';
 
     const solicitante = document.getElementById('solicitante').value.trim();
+    const filial = document.getElementById('filial').value;
     const setor = document.getElementById('setor').value;
     const justificativa = document.getElementById('justificativa').value.trim();
 
-    if (!solicitante || !setor) {
-      showToast('Preencha nome e setor do solicitante.', 'error');
+    if (!solicitante || !filial || !setor) {
+      showToast('Preencha nome, filial e setor do solicitante.', 'error');
       btn.disabled = false;
       btn.innerHTML = originalHTML;
       return;
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const formData = new FormData();
       formData.append('tipo', tipo);
+      formData.append('filial', filial);
       formData.append('solicitante', solicitante);
       formData.append('setor', setor);
       formData.append('justificativa', justificativa);

@@ -91,8 +91,9 @@ const gerarPDF = async (solicitacao, res) => {
   doc.text('Status:', infoLeftX, currentY + 46);
   doc.text('Data:', infoLeftX, currentY + 64);
 
-  doc.text('Solicitante:', infoRightX, currentY + 10);
-  doc.text('Setor:', infoRightX, currentY + 28);
+  doc.text('Filial:', infoRightX, currentY + 10);
+  doc.text('Solicitante:', infoRightX, currentY + 28);
+  doc.text('Setor:', infoRightX, currentY + 46);
 
   doc.font('Helvetica').fontSize(9).fillColor(BLACK);
   doc.text(solicitacao.numero_pedido, infoLeftX + 65, currentY + 10);
@@ -109,8 +110,9 @@ const gerarPDF = async (solicitacao, res) => {
   });
   doc.text(dataFormatada, infoLeftX + 65, currentY + 64);
 
-  doc.text(solicitacao.solicitante, infoRightX + 70, currentY + 10);
-  doc.text(solicitacao.setor, infoRightX + 70, currentY + 28);
+  doc.text(solicitacao.filial ? `Filial ${solicitacao.filial}` : '-', infoRightX + 70, currentY + 10);
+  doc.text(solicitacao.solicitante, infoRightX + 70, currentY + 28);
+  doc.text(solicitacao.setor, infoRightX + 70, currentY + 46);
 
   currentY += 100;
 
